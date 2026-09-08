@@ -17,8 +17,14 @@ __pycache__/
 .DS_Store
 Thumbs.db
 04_Backend/safaride-api/data/*.db*
+04_Backend/safaride-api/*.db*
 !04_Backend/safaride-api/data/.gitkeep
 05_Mobile_App/safaride_app/build/
 06_Passenger_App/safaride_passenger/build/
 07_Driver_App/safaride_driver/build/
 *.flutter-plugins-dependencies
+bin/
+*.exe
+*.zip
+.opencode/
+

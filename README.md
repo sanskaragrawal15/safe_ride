@@ -22,15 +22,7 @@ SafeRide OS is a multi-component safety system designed to protect passengers in
 - Device management and command/control
 - Audit logging and compliance features
 
-### 3. Command Center Dashboard (`05_Dashboard/safaride-command-center/`)
-- React-based web dashboard for fleet managers and safety operators
-- Real-time vehicle tracking and monitoring
-- Safety alert management and response coordination
-- Audio recording and transcription review
-- Device management and remote commands
-- Comprehensive analytics and reporting
-
-### 4. Passenger App (`06_Passenger_App/safaride_passenger/`)
+### 3. Passenger App (`06_Passenger_App/safaride_passenger/`)
 - Flutter mobile application for passengers
 - Trip booking and tracking
 - One-touch emergency safety button
@@ -38,7 +30,7 @@ SafeRide OS is a multi-component safety system designed to protect passengers in
 - Trip sharing with trusted contacts
 - Safety feedback and rating system
 
-### 5. Driver App (`07_Driver_App/safaride_driver/`)
+### 4. Driver App (`07_Driver_App/safaride_driver/`)
 - Flutter mobile application for drivers
 - Trip acceptance and navigation
 - Safety monitoring (unsafe driving detection)
@@ -46,7 +38,7 @@ SafeRide OS is a multi-component safety system designed to protect passengers in
 - Vehicle diagnostics integration
 - Earnings tracking and performance metrics
 
-### 6. PCB Designs (`12_PCB/`)
+### 5. PCB Designs (`12_PCB/`)
 - Hardware designs for vehicle safety devices
 - Sensor integration (GPS, accelerometer, microphone, etc.)
 - Power management and vehicle interface
@@ -99,8 +91,6 @@ SafeRide OS
 │   └── sparrow_v0.4_ble_guardian/     # ESP32 device firmware
 ├── 04_Backend/
 │   └── safaride-api/                  # Node.js/Express API
-├── 05_Dashboard/
-│   └── safaride-command-center/       # React dashboard
 ├── 06_Passenger_App/
 │   └── safaride_passenger/            # Flutter passenger app
 ├── 07_Driver_App/
@@ -189,24 +179,7 @@ npm run dev    # Development mode
 npm start      # Production mode
 ```
 
-### Dashboard Setup
-```bash
-# Navigate to dashboard directory
-cd 05_Dashboard/safaride-command-center
 
-# Install dependencies
-npm install
-
-# Set up environment
-cp .env.example .env
-# Edit .env with your configuration
-
-# Start development server
-npm start
-
-# Build for production
-npm run build
-```
 
 ### Mobile Apps Setup
 ```bash
