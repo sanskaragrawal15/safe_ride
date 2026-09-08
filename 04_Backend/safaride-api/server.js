@@ -37,6 +37,9 @@ initializeDatabase()
     const safetyRoutes = require('./src/routes/safety');
     const deviceRoutes = require('./src/routes/device');
     const auditRoutes = require('./src/routes/audit');
+    const recordingsRoutes = require('./src/routes/recordings');
+    const transcriptionRoutes = require('./src/routes/transcriptions');
+    const settingsRoutes = require('./src/routes/settings');
 
     app.use('/api/auth', authRoutes);
     app.use('/api/vehicles', vehicleRoutes);
@@ -44,6 +47,9 @@ initializeDatabase()
     app.use('/api/safety', safetyRoutes);
     app.use('/api/device', deviceRoutes);
     app.use('/api/audit', auditRoutes);
+    app.use('/api/recordings', recordingsRoutes);
+    app.use('/api/transcriptions', transcriptionRoutes);
+    app.use('/api/settings', settingsRoutes);
 
     // Health check endpoint
     app.get('/health', (req, res) => {
@@ -67,6 +73,9 @@ initializeDatabase()
           safety: '/api/safety',
           device: '/api/device',
           audit: '/api/audit',
+          recordings: '/api/recordings',
+          transcriptions: '/api/transcriptions',
+          settings: '/api/settings',
           health: '/health'
         }
       });
