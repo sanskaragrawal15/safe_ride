@@ -28,17 +28,19 @@ if (-not $nodeExe) {
 $mode = $args[0]
 if (-not $mode) { $mode = "dev" }
 
+$nodeDir = Split-Path $nodeExe
+$env:PATH = "$nodeDir;" + $env:PATH
 $nodeVersion = & $nodeExe --version
 Write-Host "Using Node: $nodeExe ($nodeVersion)" -ForegroundColor Cyan
 
 if ($mode -eq "start") {
     & $nodeExe server.js
 } else {
-    $nodemon = Join-Path $PSScriptRoot "node_modules\.bin\nodemon.cmd"
-    if (Test-Path $nodemon) {
-        & $nodeExe $nodemon server.js
+    $nodemonJs = Join-Path $PSScriptRoot "node_modules\nodemon\bin\nodemon.js"
+    if (Test-Path $nodemonJs) {
+        & $nodeExe $nodemonJs server.js
     } else {
-        Write-Host "nodemon not installed, falling back to node server.js" -ForegroundColor Yellow
+        Write-Host "nodemon not found, falling back to node server.js" -ForegroundColor Yellow
         & $nodeExe server.js
     }
 }
