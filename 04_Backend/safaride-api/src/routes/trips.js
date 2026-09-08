@@ -1,8 +1,41 @@
 const express = require('express');
 const router = express.Router();
 
-// Mock in-memory store (real app would use the database)
-const trips = [];
+// In-memory store seeded with active trips
+const trips = [
+  {
+    id: 1,
+    vehicle_id: 2,
+    driver_id: 102,
+    passenger_id: 201,
+    passenger_name: 'Priya Sharma',
+    driver_name: 'Rajesh Kumar',
+    start_location: 'Connaught Place, Inner Circle',
+    end_location: 'Indira Gandhi International Airport, T3',
+    start_time: new Date(Date.now() - 1000 * 60 * 25).toISOString(),
+    end_time: null,
+    status: 'in_progress',
+    fare: 450,
+    created_at: new Date(Date.now() - 1000 * 60 * 25).toISOString(),
+    updated_at: new Date().toISOString()
+  },
+  {
+    id: 2,
+    vehicle_id: 1,
+    driver_id: 101,
+    passenger_id: 202,
+    passenger_name: 'Aman Verma',
+    driver_name: 'Vikram Singh',
+    start_location: 'Cyber City, Phase 2',
+    end_location: 'Saket District Centre',
+    start_time: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
+    end_time: null,
+    status: 'in_progress',
+    fare: 320,
+    created_at: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
+    updated_at: new Date().toISOString()
+  }
+];
 
 // List all trips
 router.get('/', (req, res) => {
@@ -37,6 +70,8 @@ router.post('/', (req, res) => {
     updated_at: new Date().toISOString()
   };
   trips.push(trip);
+  const io = req.app.get('io');
+  if (io) io.emit('trip:created', trip);
   res.status(201).json(trip);
 });
 
@@ -50,6 +85,8 @@ router.put('/:id', (req, res) => {
   if (fare !== undefined) trip.fare = fare;
   if (status === 'completed' && !trip.end_time) trip.end_time = new Date().toISOString();
   trip.updated_at = new Date().toISOString();
+  const io = req.app.get('io');
+  if (io) io.emit('trip:updated', trip);
   res.json(trip);
 });
 

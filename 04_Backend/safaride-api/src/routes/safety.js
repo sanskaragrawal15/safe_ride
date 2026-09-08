@@ -1,8 +1,33 @@
 const express = require('express');
 const router = express.Router();
 
-// Mock in-memory store
-const alerts = [];
+// In-memory store seeded with active safety alerts
+const alerts = [
+  {
+    id: 1,
+    trip_id: 1,
+    user_id: 102,
+    type: 'SPEED_ANOMALY',
+    severity: 'MEDIUM',
+    description: 'Vehicle exceeded 80 km/h speed threshold on arterial corridor',
+    location: '28.6289, 77.2065',
+    status: 'active',
+    created_at: new Date(Date.now() - 1000 * 60 * 18).toISOString(),
+    updated_at: new Date(Date.now() - 1000 * 60 * 18).toISOString()
+  },
+  {
+    id: 2,
+    trip_id: 2,
+    user_id: 202,
+    type: 'SOS_EMERGENCY',
+    severity: 'CRITICAL',
+    description: 'Passenger triggered in-cabin panic button',
+    location: '28.5355, 77.3910',
+    status: 'active',
+    created_at: new Date(Date.now() - 1000 * 60 * 4).toISOString(),
+    updated_at: new Date(Date.now() - 1000 * 60 * 4).toISOString()
+  }
+];
 
 // List all safety alerts
 router.get('/', (req, res) => {
@@ -35,6 +60,8 @@ router.post('/', (req, res) => {
     updated_at: new Date().toISOString()
   };
   alerts.push(alert);
+  const io = req.app.get('io');
+  if (io) io.emit('safety:alert', alert);
   res.status(201).json(alert);
 });
 
@@ -45,6 +72,8 @@ router.put('/:id', (req, res) => {
   const { status } = req.body;
   if (status !== undefined) alert.status = status;
   alert.updated_at = new Date().toISOString();
+  const io = req.app.get('io');
+  if (io) io.emit('safety:alert_updated', alert);
   res.json(alert);
 });
 

@@ -3,8 +3,17 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// Mock user database (in real app, this would come from the database)
-const users = [];
+// In-memory user store seeded with default admin
+const users = [
+  {
+    id: 1,
+    name: 'Admin Dispatcher',
+    email: 'admin@safaride.com',
+    password_hash: bcrypt.hashSync('admin123', 10),
+    phone: '+91 98765 43210',
+    role: 'admin'
+  }
+];
 
 // Register endpoint
 router.post('/register', async (req, res) => {
