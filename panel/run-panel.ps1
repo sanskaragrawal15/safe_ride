@@ -22,12 +22,12 @@ if (-not $nodeExe) {
 $nodeDir = Split-Path $nodeExe
 $env:PATH = "$nodeDir;" + $env:PATH
 $npm = Join-Path $nodeDir "npm.cmd"
-$vite = Join-Path $PSScriptRoot "node_modules\.bin\vite.cmd"
+$viteJs = Join-Path $PSScriptRoot "node_modules\vite\bin\vite.js"
 
 Write-Host "Starting SafeRide OS Command Panel on Vite..." -ForegroundColor Cyan
 
-if (Test-Path $vite) {
-    & $nodeExe $vite
+if (Test-Path $viteJs) {
+    & $nodeExe $viteJs
 } else {
     & $npm run dev
 }
